@@ -34,7 +34,6 @@ services:
     ports:
       - 6379:6379
 
-
   mall4cloud-nacos:
     image: nacos/nacos-server:v2.2.0-slim
     container_name: mall4cloud-nacos
@@ -51,13 +50,12 @@ services:
       - MODE=standalone
       - PREFER_HOST_MODE=hostname
       - SPRING_DATASOURCE_PLATFORM=mysql
-      - MYSQL_SERVICE_HOST=192.168.1.46
+      - MYSQL_SERVICE_HOST=192.168.90.170
       - MYSQL_SERVICE_DB_NAME=mall4cloud_nacos
       - MYSQL_SERVICE_USER=root
       - MYSQL_SERVICE_PASSWORD=root
     volumes:
       - ./nacos/logs:/home/nacos/logs
-
 
   mall4cloud-seata:
     image: seataio/seata-server:1.6.1
@@ -70,7 +68,7 @@ services:
       - 8091:8091
       - 7091:7091
     environment:
-      - SEATA_IP=192.168.1.46
+      - SEATA_IP=192.168.90.170
     volumes:
       - ./seata/application.yml:/seata-server/resources/application.yml
 
@@ -111,7 +109,6 @@ services:
       - ./canal/conf/canal.properties:/home/admin/canal-server/conf/canal.properties
       - ./canal/logs:/home/admin/canal-server/logs
 
-
   mall4cloud-rocketmq-namesrv:
     image: apache/rocketmq:4.9.4
     container_name: mall4cloud-rocketmq-namesrv
@@ -150,7 +147,6 @@ services:
         aliases:
           - mall4cloud-rocketmq-broker
 
-
   mall4cloud-rocketmq-dashboard:
     image: apacherocketmq/rocketmq-dashboard:1.0.0
     container_name: mall4cloud-rocketmq-dashboard
@@ -165,7 +161,6 @@ services:
       rocketmq:
         aliases:
           - mall4cloud-rocketmq-console
-
 
 networks:
   rocketmq:

@@ -10,6 +10,7 @@ import com.mall4j.cloud.auth.mapper.AuthAccountMapper;
 import com.mall4j.cloud.auth.service.AuthAccountService;
 import com.mall4j.cloud.common.response.ServerResponseEntity;
 import com.mall4j.cloud.common.util.PrincipalUtil;
+import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +23,7 @@ import java.util.Objects;
  * @author FrozenWatermelon
  * @date 2020/7/2
  */
+@Slf4j
 @Service
 public class AuthAccountServiceImpl implements AuthAccountService {
 
@@ -77,6 +79,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
 		}
 
 		if (!passwordEncoder.matches(password, authAccountInVerifyBO.getPassword())) {
+			log.info("new password = {}, newPassword = {}", password, passwordEncoder.encode(password));
 			return ServerResponseEntity.showFailMsg("用户名或密码不正确");
 		}
 
